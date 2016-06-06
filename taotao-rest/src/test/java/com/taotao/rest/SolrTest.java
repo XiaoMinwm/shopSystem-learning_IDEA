@@ -25,7 +25,8 @@ public class SolrTest {
     @Test
     public void deleteDocument() throws Exception {
         SolrServer solrServer = new HttpSolrServer("http://192.168.0.121:8080/solr");
-        solrServer.deleteByQuery("test001");
+        /*solrServer.deleteById("test001");*/
+        solrServer.deleteByQuery("*:*");
         solrServer.commit();
     }
 
