@@ -14,9 +14,9 @@ public class SolrTest {
         SolrServer solrServer = new HttpSolrServer("http://192.168.0.121:8080/solr");
         SolrInputDocument document = new SolrInputDocument();
 
-        document.addField("id", "test002");
-        document.addField("item_title", "测试商品3");
-        document.addField("item_price", 4335);
+        document.addField("id", "test007");
+        document.addField("item_title", "测试商品22");
+        document.addField("item_price", 35435);
 
         solrServer.add(document);
         solrServer.commit();
@@ -26,7 +26,7 @@ public class SolrTest {
     public void deleteDocument() throws Exception {
         SolrServer solrServer = new HttpSolrServer("http://192.168.0.121:8080/solr");
         /*solrServer.deleteById("test001");*/
-        solrServer.deleteByQuery("*:*");
+        //solrServer.deleteByQuery("*:*");
         solrServer.commit();
     }
 

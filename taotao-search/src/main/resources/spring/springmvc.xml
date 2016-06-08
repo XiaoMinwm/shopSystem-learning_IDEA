@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+	
+	<context:component-scan base-package="com.taotao.search.controller" />
+	
+	<!-- 要使用注解的SpringMVC需要在SpringMVC的配置文件中进行声明，具体方式为先引入mvc命名空间 -->
+	<mvc:annotation-driven />
+	
+	<!-- 关于视图的返回，Controller只负责传回来一个值，然后到底返回的是什么视图，是由视图解析器控制的，
+	在jsp中常用的视图解析器是InternalResourceViewResovler，它会要求一个前缀和一个后缀 -->
+	<!-- 在上述视图解析器中，如果Controller返回的是blog/index，那么通过视图解析器解析之后的视图就是/WEB-INF/blog/index.jsp -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+	<!-- 定义文件上传解析器 -->
+	
+	
+	<!-- 资源映射 -->
+	
+</beans>
