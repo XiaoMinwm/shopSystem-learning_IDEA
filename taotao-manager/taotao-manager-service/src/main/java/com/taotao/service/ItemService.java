@@ -9,5 +9,6 @@ import com.taotao.pojo.TbItem;
 public interface ItemService {
 	TbItem getItemByid(long itemId);
 	EUDataGridResult getItemList(int page, int rows);
-	TaotaoResult createItem (TbItem item, String desc, String itemParam) throws Exception; 
+	TaotaoResult createItem (TbItem item, String desc, String itemParam) throws Exception;
+	TaotaoResult updateSolr(TbItem item);
 }

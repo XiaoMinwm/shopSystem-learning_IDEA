@@ -1,6 +1,8 @@
 package com.taotao.search.controller;
 
 import com.taotao.common.utils.TaotaoResult;
+import com.taotao.pojo.TbItem;
+import com.taotao.search.pojo.Item;
 import com.taotao.search.service.ItemSearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +25,13 @@ public class ItemController {
     @ResponseBody
     public TaotaoResult importAllItems() {
         TaotaoResult result = itemSearchService.importAllItems();
+        return result;
+    }
+
+    @RequestMapping("/importitem")
+    @ResponseBody
+    public TaotaoResult importItem(TbItem item) {
+        TaotaoResult result = itemSearchService.importItem(item);
         return result;
     }
 }

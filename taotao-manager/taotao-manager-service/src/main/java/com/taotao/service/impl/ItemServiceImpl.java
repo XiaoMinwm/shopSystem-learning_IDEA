@@ -4,9 +4,13 @@ package com.taotao.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import javax.naming.directory.SearchResult;
 import javax.naming.spi.DirStateFactory.Result;
 
+import com.taotao.common.utils.HttpClientUtil;
+import com.taotao.common.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageHelper;
@@ -30,6 +34,8 @@ import com.taotao.service.ItemService;
  */
 @Service
 public class ItemServiceImpl implements ItemService {
+	@Value("${SEARCH_BASE_URL}")
+	private String SEARCH_BASE_URL;
 	@Autowired
 	private TbItemMapper itemMapper;
 	@Autowired
@@ -100,6 +106,11 @@ public class ItemServiceImpl implements ItemService {
 		itemParamItem.setCreated(new Date());
 		itemParamItem.setUpdated(new Date());
 		itemParamItemMapper.insert(itemParamItem);
+		return TaotaoResult.ok();
+	}
+
+	public TaotaoResult updateSolr(TbItem item) {
+		HttpClientUtil.doPostJson(SEARCH_BASE_URL + "/importitem", JsonUtils.objectToJson(item));
 		return TaotaoResult.ok();
 	}
 

@@ -16,12 +16,13 @@ import org.springframework.web.bind.annotation.*;
 public class SearchController {
     @Autowired
     private SearchService searchService;
+
     @RequestMapping(value = "/query", method = RequestMethod.GET)
     @ResponseBody
     public TaotaoResult search(@RequestParam("q") String queryString,
                                @RequestParam(defaultValue = "1") Integer page,
                                @RequestParam(defaultValue = "60") Integer rows) {
-        if(StringUtils.isEmpty(queryString)) {
+        if (StringUtils.isEmpty(queryString)) {
             return TaotaoResult.build(400, "查询条件不能为空");
         }
         SearchResult searchResult = null;
