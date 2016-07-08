@@ -14,3 +14,4 @@ pom.xml
 shopSystem-learning.iml
 taotao-sso.iml
 taotao-sso/
+/target/
