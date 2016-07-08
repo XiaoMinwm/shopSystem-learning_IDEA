@@ -73,6 +73,38 @@ public class UserController {
         }
     }
 
+    @RequestMapping("/login")
+    @ResponseBody
+    public TaotaoResult userLogin(String username, String password) {
+        try {
+            TaotaoResult taotaoResult = userService.userLogin(username, password);
+            return taotaoResult;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+        }
+    }
+
+    @RequestMapping("/token/{token}")
+    @ResponseBody
+    public Object getByToken(@PathVariable String token, String callback) {
+        TaotaoResult result = null;
+        try {
+            result = userService.getByToken(token);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return TaotaoResult.build(500, ExceptionUtil.getStackTrace(e));
+        }
+        
+        if(StringUtils.isEmpty(callback)) {
+            return result;
+        } else {
+            MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
+            mappingJacksonValue.setJsonpFunction(callback);
+            return mappingJacksonValue;
+        }
+    }
+
 
 }
 
