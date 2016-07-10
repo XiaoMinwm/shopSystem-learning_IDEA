@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 /**
  * Created by XiaoMin on 2016/6/20.
  */
@@ -36,13 +39,13 @@ public class UserController {
         }
 
         if(null != result) {
-            if(null != callback) {
+            if (null != callback) {
                 MappingJacksonValue mappingJacksonValue = new MappingJacksonValue(result);
                 mappingJacksonValue.setJsonpFunction(callback);
                 return mappingJacksonValue;
+            } else {
+                return result;
             }
-        } else {
-            return null;
         }
         //调用服务
         try {
@@ -75,9 +78,9 @@ public class UserController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public TaotaoResult userLogin(String username, String password) {
+    public TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         try {
-            TaotaoResult taotaoResult = userService.userLogin(username, password);
+            TaotaoResult taotaoResult = userService.userLogin(username, password, request, response);
             return taotaoResult;
         } catch (Exception e) {
             e.printStackTrace();

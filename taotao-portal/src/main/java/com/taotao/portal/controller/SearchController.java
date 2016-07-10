@@ -8,8 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * Created by XiaoMin on 2016/6/18.
  */
@@ -21,11 +19,11 @@ public class SearchController {
     @RequestMapping("/search")
     public String search(@RequestParam("q")String queryString, @RequestParam(defaultValue = "1")Integer page, Model model) {
         if(queryString != null) {
-            try {
+            /*try {
                 queryString = new String(queryString.getBytes("iso8859-1"), "utf-8");
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
-            }
+            }*/
         }
         SearchResult searchResult = searchService.search(queryString, page);
         model.addAttribute("query", queryString);

@@ -1,5 +1,6 @@
 package com.taotao.sso.service.impl;
 
+import com.taotao.common.utils.CookieUtils;
 import com.taotao.common.utils.JsonUtils;
 import com.taotao.common.utils.TaotaoResult;
 import com.taotao.mapper.TbUserMapper;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -60,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public TaotaoResult userLogin(String username, String password) {
+    public TaotaoResult userLogin(String username, String password, HttpServletRequest request, HttpServletResponse response) {
         TbUserExample example = new TbUserExample();
         TbUserExample.Criteria criteria = example.createCriteria();
         criteria.andUsernameEqualTo(username);
@@ -77,6 +80,9 @@ public class UserServiceImpl implements UserService {
         user.setPassword(null);
         jedisClient.set(REDIS_USER_SESSION_KEY + ":" + token, JsonUtils.objectToJson(user));
         jedisClient.expire(REDIS_USER_SESSION_KEY + ":" + token, REDIS_USER_SSO_EXPIRE);
+
+        //add cookie
+        CookieUtils.setCookie(request, response, "TT_TOKEN", token);
         return TaotaoResult.ok(token);
     }
 
