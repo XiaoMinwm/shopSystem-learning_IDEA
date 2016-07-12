@@ -40,10 +40,10 @@
       <module name="taotao-manager-pojo" target="1.7" />
       <module name="taotao-manager-service" target="1.7" />
       <module name="taotao-manager-web" target="1.7" />
-      <module name="taotao-parent" target="1.7" />
-      <module name="taotao-portal" target="1.7" />
-      <module name="taotao-rest" target="1.7" />
-      <module name="taotao-search" target="1.7" />
+      <module name="taotao-parent" target="1.5" />
+      <module name="taotao-portal" target="1.5" />
+      <module name="taotao-rest" target="1.5" />
+      <module name="taotao-search" target="1.5" />
       <module name="taotao-sso" target="1.7" />
     </bytecodeTargetLevel>
   </component>
