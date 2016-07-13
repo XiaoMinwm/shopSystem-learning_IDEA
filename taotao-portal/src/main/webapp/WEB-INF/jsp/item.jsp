@@ -37,6 +37,9 @@
 </head>
 <body version="140120">
 <script type="text/javascript">try {
+
+
+
     (function (flag) {
         if (!flag) {
             return;
@@ -95,7 +98,7 @@
                 href="http://item.jd.com/1221882.html">长虹LED42538ES</a></span>
     </div>
 </div><!--breadcrumb end-->
-<div class="w">
+<form class="w" method="post">
     <div id="product-intro">
         <div id="name">
             <h1>${item.title }</h1>
@@ -267,7 +270,7 @@
             </div>
         </div><!--preview end-->
     </div><!--product-intro end-->
-</div>
+</form>
 <div class="w">
     <div class="right">
         <div id="product-detail" class="m m1" data-widget="tabs" clstag="shangpin|keycount|product|detail">

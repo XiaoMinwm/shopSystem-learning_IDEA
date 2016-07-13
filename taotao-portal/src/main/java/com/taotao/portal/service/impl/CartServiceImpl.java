@@ -6,6 +6,7 @@ import com.taotao.common.utils.JsonUtils;
 import com.taotao.common.utils.TaotaoResult;
 import com.taotao.pojo.TbItem;
 import com.taotao.portal.pojo.CartItem;
+import com.taotao.portal.service.CartService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public class CartServiceImpl implements CartService {
         if(cartItem == null) {
             cartItem = new CartItem();
             String json = HttpClientUtil.doGet(REST_BASE_URL + ITEM_INFO_URL + itemId);
-            TaotaoResult result = TaotaoResult.formatToList(json, TbItem.class);
+            TaotaoResult result = TaotaoResult.formatToPojo(json, TbItem.class);
             if(result.getStatus() == 200) {
                 TbItem item = (TbItem) result.getData();
                 cartItem.setNum(item.getNum());
@@ -59,6 +60,35 @@ public class CartServiceImpl implements CartService {
         CookieUtils.setCookie(request, response, "TT_CART", JsonUtils.objectToJson(itemList), true);
         return TaotaoResult.ok();
     }
+
+    @Override
+    public List<CartItem> getCartItemList(HttpServletRequest request, HttpServletResponse response) {
+        List<CartItem> itemList = getCartItemList(request);
+        return itemList;
+    }
+
+    @Override
+    public TaotaoResult deleteCartItem(long itemId, HttpServletRequest request, HttpServletResponse response) {
+        List<CartItem> list = getCartItemList(request);
+        for(CartItem item : list) {
+            if(item.getId() == itemId) {
+                list.remove(item);
+                break;
+            }
+        }
+        CookieUtils.setCookie(request, response, "TT_CART", JsonUtils.objectToJson(list), true);
+        return TaotaoResult.ok();
+    }
+
+    /**
+     * 删除购物车商品
+     * <p>Title: deleteCartItem</p>
+     * <p>Description: </p>
+     * @param itemId
+     * @return
+     * @see com.taotao.portal.service.CartService#deleteCartItem(long)
+     */
+
 
     /**
      * 从cookie中取商品列表
